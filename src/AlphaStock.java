@@ -15,7 +15,6 @@ import org.json.simple.parser.ParseException;
 
 public class AlphaStock {
 
-    // Function to get data from Alpha Vantage API
     private static String fetchData() {
         String apiUrl = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=3U364IUBVJP7UTGW"; // add your API key to the string
         StringBuilder result = new StringBuilder();
@@ -26,7 +25,6 @@ public class AlphaStock {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("User-Agent", "Mozilla/5.0");
 
-            // Check response code
             if (conn.getResponseCode() != 200) {
                 throw new IOException("Failed to fetch data, response code: " + conn.getResponseCode());
             }
@@ -46,7 +44,6 @@ public class AlphaStock {
         return result.toString();
     }
 
-    // Function to parse JSON data and return as a 2D array
     private static Object[][] parseData(String jsonData) {
         JSONParser parser = new JSONParser();
         Object[][] data = new Object[0][3];
@@ -85,7 +82,6 @@ public class AlphaStock {
     }
 
     public static void main(String[] args) {
-        // Create the main frame
         JFrame frame = new JFrame("Stock Investment Advisor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -120,7 +116,6 @@ public class AlphaStock {
         frame.add(BorderLayout.NORTH, panel);
         frame.add(BorderLayout.CENTER, scrollPane);
 
-        // Display the frame
         frame.setVisible(true);
     }
 }
