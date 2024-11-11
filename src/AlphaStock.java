@@ -96,7 +96,6 @@ public class AlphaStock {
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
-
         fetchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
