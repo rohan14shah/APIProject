@@ -16,7 +16,7 @@ import org.json.simple.parser.ParseException;
 public class AlphaStock {
 
     private static String fetchData() {
-        String apiUrl = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=3U364IUBVJP7UTGW"; // add your API key to the string
+        String apiUrl = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=F8QI5TEKRS1MOLKT";
         StringBuilder result = new StringBuilder();
 
         try {
@@ -46,7 +46,7 @@ public class AlphaStock {
 
     private static Object[][] parseData(String jsonData) {
         JSONParser parser = new JSONParser();
-        Object[][] data = new Object[0][3];
+        Object[][] data = new Object[0][1];
 
         try {
             JSONObject jsonObject = (JSONObject) parser.parse(jsonData);
@@ -54,22 +54,20 @@ public class AlphaStock {
             JSONArray losers = (JSONArray) jsonObject.get("top_losers");
 
             int totalRows = gainers.size() + losers.size();
-            data = new Object[totalRows][3];
+            data = new Object[totalRows][2];
 
             int index = 0;
             for (Object obj : gainers) {
                 JSONObject stock = (JSONObject) obj;
-                data[index][0] = stock.get("symbol");
-                data[index][1] = stock.get("name");
-                data[index][2] = stock.get("price");
+                data[index][0] = stock.get("ticker");
+                data[index][1] = stock.get("price");
                 index++;
             }
 
             for (Object obj : losers) {
                 JSONObject stock = (JSONObject) obj;
-                data[index][0] = stock.get("symbol");
-                data[index][1] = stock.get("name");
-                data[index][2] = stock.get("price");
+                data[index][0] = stock.get("ticker");
+                data[index][1] = stock.get("price");
                 index++;
             }
 
@@ -92,7 +90,7 @@ public class AlphaStock {
         JButton fetchButton = new JButton("Fetch Stocks");
         panel.add(fetchButton);
 
-        String[] columnNames = {"Symbol", "Name", "Price"};
+        String[] columnNames = {"Symbol", "Price ($)"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
